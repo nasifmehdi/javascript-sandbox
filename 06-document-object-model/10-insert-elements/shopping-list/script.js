@@ -1,47 +1,42 @@
-// insertAdjacentElement Example
-function insertElement() {
-  const filter = document.querySelector('.filter');
+//insertAdjacentElement
 
-  const h1 = document.createElement('h1');
-  h1.textContent = 'insertAdjacentElement';
+function insertElement(){
+ const filter = document.querySelector('.filter');
 
-  filter.insertAdjacentElement('beforebegin', h1);
+ let h3= document.createElement('h3')
+ h3.textContent='insertAdjacentElement'
+//instead of appendChild we are using insertAdjacentElement
+filter.insertAdjacentElement('beforebegin',h3)
+
+}
+//insertAdjancentText
+function insertText(){
+  const text=document.querySelector('li:nth-child(1)')
+
+  text.insertAdjacentText('afterend','insertAdjacentText')
+
+}
+//insertAdjacentHTML
+
+function insertHTML(){
+  const html=document.querySelector('#clear')
+  html.insertAdjacentHTML('afterend','<p>insert adjacent html</p>')
+
+   
 }
 
-// insertAdjacentText Example
-function insertText() {
-  const item = document.querySelector('li:first-child');
+//insertBefore
 
-  item.insertAdjacentText('beforebegin', 'insertAdjacentText');
+function insertBeforeElement(){
+  
+  const list=document.querySelector('li')
+  list.textContent = 'insertBefore'
+  const Seconditem=document.querySelector('li:nth-child(3)')
+  const ul=document.querySelector('ul')
+  ul.insertBefore(list,Seconditem)  
+
 }
-
-// insertAdjacentHTML example
-function insertHTML() {
-  const clearBtn = document.querySelector('#clear');
-
-  clearBtn.insertAdjacentHTML('afterend', '<h2>insertAdjacentHTML</h2>');
-}
-
-// insertBefore Example
-function insertBeforeItem() {
-  const ul = document.querySelector('ul');
-
-  const li = document.createElement('li');
-  li.textContent = 'insertBefore';
-
-  const thirdItem = document.querySelector('li:nth-child(3)');
-
-  ul.insertBefore(li, thirdItem);
-}
-
-insertElement();
-
-/*
-<!-- beforebegin -->
-<p>
-  <!-- afterbegin -->
-  foo
-  <!-- beforeend -->
-</p>
-<!-- afterend -->
-*/
+insertElement()
+insertText()
+insertHTML()
+insertBeforeElement()
