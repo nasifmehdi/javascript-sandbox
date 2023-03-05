@@ -1,37 +1,17 @@
 let output;
+output = document.querySelector('.parent')
 
-// Get child elements from a parent
+//children is property not function
+console.log(output.children);
+console.log(output.children[0]);
+console.log(output.children[0].innerText);
+console.log(output.children[0].nodeName);
+output.children[0].style.color='red'
+output.children[1].innerText='c h i l d t w o'
+output.firstElementChild.nextElementSibling.innerText='child two'
 
-const parent = document.querySelector('.parent');
+let child2=document.querySelector('.child:nth-child(2)')
+child2.nextElementSibling.style.color='blue'
+child2.previousElementSibling.style.color='blue'
 
-output = parent.children;
-
-output = parent.children[1].innerText;
-output = parent.children[1].className;
-output = parent.children[1].nodeName;
-
-parent.children[1].innerText = 'Child Two';
-parent.children[1].style.color = 'red';
-
-parent.firstElementChild.innerText = 'Child One';
-parent.lastElementChild.innerText = 'Child Three';
-
-// Get parent elements from a child
-
-const child = document.querySelector('.child');
-
-output = child.parentElement;
-child.parentElement.style.border = '1px solid #ccc';
-child.parentElement.style.padding = '10px';
-
-// Get sibling elements
-
-const secondItem = document.querySelector('.child:nth-child(2)');
-
-output = secondItem;
-output = secondItem.nextElementSibling;
-
-secondItem.nextElementSibling.style.color = 'green';
-secondItem.previousElementSibling.style.color = 'orange';
-
-console.log(output);
+console.log();
