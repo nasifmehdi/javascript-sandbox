@@ -1,42 +1,44 @@
-// remove() Method
-function removeClearButton() {
-  const clearBtn = document.querySelector('#clear');
-  clearBtn.remove();
+function removeClearButtn(){
+
+const selectButtn= document.querySelector('.btn-clear').remove()
+
 }
 
-// removeChild() Method
-function removeFirstItem() {
-  const ul = document.querySelector('ul');
-  const li = document.querySelector('li:first-child');
+function removeFirstItem(){
 
-  ul.removeChild(li);
+const takeItem = document.querySelector('li:nth-child(1)')
+takeItem.remove()
+
 }
 
-// Other examples
 
-function removeItem(itemNumber) {
-  const ul = document.querySelector('ul');
-  const li = document.querySelector(`li:nth-child(${itemNumber})`);
-
-  ul.removeChild(li);
+function removeFirstItem2(){
+  const ul = document.querySelector('ul')
+  const takeItem = document.querySelector('li:nth-child(1)')
+  ul.removeChild(takeItem)
+  
 }
 
-function removeItem2(itemNumber) {
-  const ul = document.querySelector('ul');
-  const li = document.querySelectorAll('li')[itemNumber - 1];
+function removeItem(item){
+ const ul = document.querySelector('ul')
+ const takeItem = document.querySelector(`li:nth-child(${item})`)
+ //const takeItem2 = document.querySelectorAll('li')[item-1]
+ ul.removeChild(takeItem)
 
-  ul.removeChild(li);
+}
+function removeAll(){
+ const takeList= document.querySelectorAll('li')
+ takeList.forEach(element => element.remove())
+
 }
 
-function removeItem3(itemNumber) {
-  const li = document.querySelectorAll('li');
-  li[itemNumber - 1].remove();
-}
+const removeItem3 = index =>
+ document.querySelectorAll('li')[index-1].remove()
 
-const removeItem4 = (itemNumber) =>
-  document.querySelectorAll('li')[itemNumber - 1].remove();
-
-removeClearButton();
-// removeFirstItem();
-// removeItem(2);
-removeItem4(2);
+ 
+//removeAll()
+//removeFirstItem()
+//removeItem(2)
+//removeFirstItem2()
+//removeClearButtn()
+removeItem3(1)
