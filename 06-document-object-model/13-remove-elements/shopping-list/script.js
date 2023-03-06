@@ -35,7 +35,7 @@ function removeAll(){
 const removeItem3 = index =>
  document.querySelectorAll('li')[index-1].remove()
 
- 
+
 //removeAll()
 //removeFirstItem()
 //removeItem(2)
