@@ -1,35 +1,32 @@
-const clearBtn = document.querySelector('#clear');
+const clearButtton=document.querySelector('.btn-clear')
 
-function onClear() {
-  const itemList = document.querySelector('ul');
-  const items = itemList.querySelectorAll('li');
-
-  // itemList.innerHTML = '';
-
-  // items.forEach((item) => item.remove());
-
-  while (itemList.firstChild) {
-    itemList.removeChild(itemList.firstChild);
-  }
+function onClear(){
+  alert('clearing all items')
+  waitAndDelete()
 }
 
-// JavaScript Event Listener
-clearBtn.onclick = function () {
-  alert('Clear Items');
-};
+//javascript eventListener
+//clearButtton.onclick = () => onClear()
 
-clearBtn.onclick = function () {
-  console.log('Clear Items');
-};
+//addEventListener()
 
-// addEventListener()
-clearBtn.addEventListener('click', () => alert('Clear Items'));
+clearButtton.addEventListener('click',onClear)
+//setTimeout
 
-// Use named function
-clearBtn.addEventListener('click', onClear);
+//setTimeout(function ( )
+//{ 
+//  clearButtton.removeEventListener('click',onClear)
+//}, 3000)
 
-// removeEventListener()
-setTimeout(() => clearBtn.removeEventListener('click', onClear), 5000);
+function waitAndDelete(){
 
-// Fire off event from JS
-setTimeout(() => clearBtn.click(), 5000);
+  const list=document.querySelectorAll('li')
+  list.forEach(element => element.remove())
+ 
+}
+
+
+setTimeout(
+
+function (){waitAndDelete()}
+, 5000)
