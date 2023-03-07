@@ -4,7 +4,7 @@ const checkbox = document.getElementById('checkbox');
 const heading = document.querySelector('h1');
 
 function onInput(e) {
-  heading.textContent = e.target.value;
+  heading.textContent=e.target.value
 }
 
 function onChecked(e) {
