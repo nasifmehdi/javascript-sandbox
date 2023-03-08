@@ -8,18 +8,30 @@ const clearAllButton= document.getElementById('clear')
 
 function displayItems(){
     let itemsFromStorage = getItemsFromStorage();
-   
-
+    
     itemsFromStorage.forEach(item => addItemToDOM(item))
 }
 function addItem(e){
     e.preventDefault()
     const textInput=formInput.value;
- if(formInput.value==''){
- alert('form is empty')
- return
+    if(formInput.value==''){
+    alert('form is empty')
+    return
  }
- 
+ if(isEditMode){
+    const itemToEdit=document.querySelector('.edit-mode')
+    removeItemFromStorage(itemToEdit.innerText)
+    //remove color from item
+    itemToEdit.classList.remove('edit-mode')
+    //remove item
+    itemToEdit.remove()
+    isEditMode=false;
+    console.log(itemToEdit.classList);
+    //change button back to default
+    formInput.value=''
+    formBtn.innerHTML='<i class="fa-solid fa-plus"></i> Add Item'
+    formBtn.style.backgroundColor='#333'
+ }
  addItemToDOM(textInput)
 
  //console.log(ul);
@@ -49,12 +61,16 @@ function removeItem(e){
     const item=e.target.parentElement.parentElement
     if(e.target.parentElement.classList.contains('remove-item')){
         if(window.confirm('Are you sure you want to remove item?'))
-        item.remove();}
-    
+        item.remove();
+        //!item ==item.innerText
+        removeItemFromStorage(item.innerText)
+        console.log(item.innerText);
+    }
+        
     else{
         setItemToEdit(e.target)
     }
-    removeItemFromStorage(item)
+    
 }
 let isEditMode=false;
 
@@ -68,6 +84,7 @@ formBtn.innerHTML='<i class="fa-solid fa-xmark"></i> Update item'
 formBtn.style.backgroundColor='rgb(220,100,100)'
 formInput.value=item.innerText
 }
+
 function clearAll(){
 while(ul.firstChild){
     ul.removeChild(ul.firstChild)
