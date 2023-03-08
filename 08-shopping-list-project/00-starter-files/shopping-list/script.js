@@ -1,6 +1,7 @@
 const form = document.querySelector('#item-form')
 const formInput= document.querySelector('#item-input')
 const ul=document.getElementById('item-list')
+const formBtn=document.querySelector('.btn')
 //not const li=document.querySelector('li')
 const filter=document.getElementById('filter')
 const clearAllButton= document.getElementById('clear')
@@ -46,10 +47,26 @@ function addItemToDOM(item){
 }
 function removeItem(e){
     const item=e.target.parentElement.parentElement
-    if(e.target.parentElement.classList.contains('remove-item'))
-    item.remove();
- 
-    removeItemFromStorage(item.textContent)
+    if(e.target.parentElement.classList.contains('remove-item')){
+        if(window.confirm('Are you sure you want to remove item?'))
+        item.remove();}
+    
+    else{
+        setItemToEdit(e.target)
+    }
+    removeItemFromStorage(item)
+}
+let isEditMode=false;
+
+function setItemToEdit(item){
+
+isEditMode=true;
+
+document.querySelectorAll('li').forEach(i => i.classList.remove('edit-mode'))
+item.classList.add('edit-mode')
+formBtn.innerHTML='<i class="fa-solid fa-xmark"></i> Update item'
+formBtn.style.backgroundColor='rgb(220,100,100)'
+formInput.value=item.innerText
 }
 function clearAll(){
 while(ul.firstChild){
