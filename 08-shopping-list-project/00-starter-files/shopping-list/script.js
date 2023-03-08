@@ -1,9 +1,10 @@
 const form = document.querySelector('#item-form')
 const formInput= document.querySelector('#item-input')
 const ul=document.getElementById('item-list')
+//not const li=document.querySelector('li')
 const filter=document.getElementById('filter')
 const clearAllButton= document.getElementById('clear')
-//const li=document.querySelector('li')
+
 function addItem(e){
     e.preventDefault()
     const textInput=formInput.value;
@@ -11,6 +12,7 @@ function addItem(e){
  alert('form is empty')
  return
  }
+
  
  //create li,textNode,button,icon
  const li=document.createElement('li')
@@ -29,7 +31,8 @@ function addItem(e){
  li.appendChild(button)
  ul.appendChild(li)
  formInput.value=''
- console.log(ul);
+ //console.log(ul);
+ addItemToStorage(textInput)
 }
 
 function removeItem(e){
@@ -52,15 +55,15 @@ function clearUI(){
 const li=document.querySelectorAll('li')
 
 if(li.length==0){
-clearAllButton.style.display='none'
-filterItems.style.display='none'
-}
-else{
-    clearAllButton.style.display='flex'
-    filterItems.style.display='flex'
- 
-    }   
-}
+    clearAllButton.style.display='none'
+    filter.style.display='none'
+    }
+    else{
+        clearAllButton.style.display='flex'
+        filter.style.display='flex'
+     
+        }   
+    }
 
 function filterItems(e){
 const filter=document.getElementById('filter')
@@ -77,7 +80,21 @@ li.forEach((item,index) =>{
 //console.log(filter.value);
 
 }
+function addItemToStorage(item){
+ let itemsFromStorage;
+ if(localStorage.getItem('items')==null){
+    itemsFromStorage=[]
+ }
+ else{
+    itemsFromStorage=JSON.parse(localStorage.getItem('items'))
+ }
+ itemsFromStorage.push(item)
 
+ localStorage.setItem('items',JSON.stringify(itemsFromStorage))
+
+  
+
+}
 
 form.addEventListener('submit',addItem)
 ul.addEventListener('click',removeItem)
