@@ -5,6 +5,12 @@ const ul=document.getElementById('item-list')
 const filter=document.getElementById('filter')
 const clearAllButton= document.getElementById('clear')
 
+function displayItems(){
+    let itemsFromStorage = getItemsFromStorage();
+   
+
+    itemsFromStorage.forEach(item => addItemToDOM(item))
+}
 function addItem(e){
     e.preventDefault()
     const textInput=formInput.value;
@@ -12,11 +18,17 @@ function addItem(e){
  alert('form is empty')
  return
  }
-
  
- //create li,textNode,button,icon
+ addItemToDOM(textInput)
+
+ //console.log(ul);
+ addItemToStorage(textInput)
+}
+
+function addItemToDOM(item){
+     //create li,textNode,button,icon
  const li=document.createElement('li')
- const textNode= document.createTextNode(formInput.value)
+ const textNode= document.createTextNode(item)
  const button= document.createElement('button')
 
 
@@ -30,31 +42,26 @@ function addItem(e){
  li.appendChild(textNode)
  li.appendChild(button)
  ul.appendChild(li)
- formInput.value=''
- //console.log(ul);
- addItemToStorage(textInput)
+ item=''
 }
-
 function removeItem(e){
-if(e.target.parentElement.classList.contains('remove-item'))
- e.target.parentElement.parentElement.remove();
-;
-
-
+    const item=e.target.parentElement.parentElement
+    if(e.target.parentElement.classList.contains('remove-item'))
+    item.remove();
+ 
+    removeItemFromStorage(item.textContent)
 }
-function clearAll(e){
+function clearAll(){
 while(ul.firstChild){
     ul.removeChild(ul.firstChild)
 }
-
-
 clearUI()
 
 }
 function clearUI(){
-const li=document.querySelectorAll('li')
+    const li=document.querySelectorAll('li')
 
-if(li.length==0){
+    if(li.length==0){
     clearAllButton.style.display='none'
     filter.style.display='none'
     }
@@ -63,7 +70,7 @@ if(li.length==0){
         filter.style.display='flex'
      
         }   
-    }
+}
 
 function filterItems(e){
 const filter=document.getElementById('filter')
@@ -81,22 +88,36 @@ li.forEach((item,index) =>{
 
 }
 function addItemToStorage(item){
- let itemsFromStorage;
- if(localStorage.getItem('items')==null){
-    itemsFromStorage=[]
- }
- else{
-    itemsFromStorage=JSON.parse(localStorage.getItem('items'))
- }
+ let itemsFromStorage= getItemsFromStorage();
+ 
  itemsFromStorage.push(item)
-
  localStorage.setItem('items',JSON.stringify(itemsFromStorage))
-
-  
 
 }
 
+function getItemsFromStorage(){
+    let itemsFromStorage;
+    if(localStorage.getItem('items')==null){
+       itemsFromStorage=[]
+    }
+    else{
+       itemsFromStorage=JSON.parse(localStorage.getItem('items'))
+    }
+    return itemsFromStorage
+}
+function removeItemFromStorage(item){
+  let itemsFromStorage=getItemsFromStorage()
+  
+  itemsFromStorage = itemsFromStorage.filter(i => i!=item)
+  localStorage.setItem('items',JSON.stringify(itemsFromStorage));
+
+}
+
+function init(){
 form.addEventListener('submit',addItem)
 ul.addEventListener('click',removeItem)
 clearAllButton.addEventListener('click', clearAll)
 filter.addEventListener('input',filterItems)
+document.addEventListener('DOMContentLoaded',displayItems)
+}
+init()
