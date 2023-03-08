@@ -32,6 +32,12 @@ function addItem(e){
     formBtn.innerHTML='<i class="fa-solid fa-plus"></i> Add Item'
     formBtn.style.backgroundColor='#333'
  }
+ else{
+    if(checkIfItemExists(textInput)){
+      alert('That item already exists!')
+      return
+    }
+ }
  addItemToDOM(textInput)
 
  //console.log(ul);
@@ -65,6 +71,8 @@ function removeItem(e){
         //!item ==item.innerText
         removeItemFromStorage(item.innerText)
         console.log(item.innerText);
+        formBtn.innerHTML='<i class="fa-solid fa-plus"></i> Add Item'
+        formBtn.style.backgroundColor='#333'
     }
         
     else{
@@ -83,6 +91,11 @@ item.classList.add('edit-mode')
 formBtn.innerHTML='<i class="fa-solid fa-xmark"></i> Update item'
 formBtn.style.backgroundColor='rgb(220,100,100)'
 formInput.value=item.innerText
+}
+function checkIfItemExists(item){
+ const itemsFromStorage=getItemsFromStorage()
+ //returns boolean
+ return itemsFromStorage.includes(item)
 }
 
 function clearAll(){
