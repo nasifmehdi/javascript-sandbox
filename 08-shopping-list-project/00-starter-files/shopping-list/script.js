@@ -1,7 +1,7 @@
 const form = document.querySelector('#item-form')
 const formInput= document.querySelector('#item-input')
 const ul=document.getElementById('item-list')
-const filterItems=document.getElementById('filter')
+const filter=document.getElementById('filter')
 const clearAllButton= document.getElementById('clear')
 //const li=document.querySelector('li')
 function addItem(e){
@@ -56,13 +56,30 @@ clearAllButton.style.display='none'
 filterItems.style.display='none'
 }
 else{
-    clearAllButton.style.display='block'
-    filterItems.style.display='block'
+    clearAllButton.style.display='flex'
+    filterItems.style.display='flex'
  
     }   
+}
+
+function filterItems(e){
+const filter=document.getElementById('filter')
+const li=document.querySelectorAll('li')
+const inputText=e.target.value.toLowerCase()
+li.forEach((item,index) =>{
+   const liText=item.firstChild.textContent.toLowerCase()
+   if(liText.indexOf(inputText)!=-1)
+  item.style.display='flex'
+  else
+  item.style.display='none'
+
+})
+//console.log(filter.value);
+
 }
 
 
 form.addEventListener('submit',addItem)
 ul.addEventListener('click',removeItem)
 clearAllButton.addEventListener('click', clearAll)
+filter.addEventListener('input',filterItems)
