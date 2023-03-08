@@ -1,17 +1,17 @@
 const form = document.querySelector('#item-form')
 const formInput= document.querySelector('#item-input')
 const ul=document.getElementById('item-list')
-console.log();
+
 
 function addItem(e){
     e.preventDefault()
     const textInput=formInput.value;
 
- /*if(formInput.value==''){
+ if(formInput.value==''){
  alert('form is empty')
  return
  }
- */
+ 
  
  const li=document.createElement('li')
  const textNode= document.createTextNode(formInput.value)
@@ -24,6 +24,7 @@ function addItem(e){
  li.appendChild(textNode)
  li.appendChild(button)
  ul.appendChild(li)
+ formInput.value=''
  console.log(ul);
 }
 form.addEventListener('submit',addItem)
