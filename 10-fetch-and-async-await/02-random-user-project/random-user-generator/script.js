@@ -1,57 +1,46 @@
-function fetchUser() {
-  showSpinner();
-  fetch('https://randomuser.me/api')
-    .then((res) => res.json())
-    .then((data) => {
-      hideSpinner();
-      displayUser(data.results[0]);
-    });
-}
 
-function displayUser(user) {
-  const userDisplay = document.querySelector('#user');
+document.querySelector('button').addEventListener('click',()=>{
 
-  if (user.gender === 'female') {
-    document.body.style.backgroundColor = 'rebeccapurple';
-  } else {
-    document.body.style.backgroundColor = 'steelblue';
+  fetch('https://randomuser.me/api/')
+.then(response=> {return response.json()})
+.then(data => {return (data.results[0]) })
+.then(randomUser =>{
+  document.body.style.color='black'
+  if(randomUser.gender=='female')
+  document.body.style.backgroundColor='pink'
+  else
+  document.body.style.backgroundColor='rgb(2, 124, 255)'
+  const userInfo = document.querySelector('#user')
+  let age =randomUser.dob.age
+  if(randomUser.dob.age==69){
+    age= '69 nice'
   }
-
-  userDisplay.innerHTML = `
-  <div class="flex justify-between">
-  <div class="flex">
+  userInfo.innerHTML=` <div class="flex justify-between">
+  <div class="flex"> 
     <img
       class="w-48 h-48 rounded-full mr-8"
-      src="${user.picture.large}"
+      src="${randomUser.picture.large}"
     />
     <div class="space-y-3">
       <p class="text-xl">
-        <span class="font-bold">Name: </span>${user.name.first} ${user.name.last}
+        <span class="font-bold">Name: </span>${randomUser.name.first} ${randomUser.name.last}
       </p>
       <p class="text-xl">
-        <span class="font-bold">Email: </span> ${user.email}
+        <span class="font-bold">Email: </span> ${randomUser.email}
       </p>
       <p class="text-xl">
-        <span class="font-bold">Phone: </span> ${user.phone}
+        <span class="font-bold">Phone: </span> ${randomUser.phone}
       </p>
       <p class="text-xl">
-        <span class="font-bold">Location: </span> ${user.location.city} ${user.location.country}
+        <span class="font-bold">Location: </span> ${randomUser.location.city} ${randomUser.location.country}
       </p>
-      <p class="text-xl"><span class="font-bold">Age: </span> ${user.dob.age}</p>
+      <p class="text-xl"><span class="font-bold">Age: </span> ${age}</p>
     </div>
   </div>
-</div>
-  `;
-}
+</div>`
+})
 
-function showSpinner() {
-  document.querySelector('.spinner').style.display = 'block';
-}
 
-function hideSpinner() {
-  document.querySelector('.spinner').style.display = 'none';
-}
+})
 
-document.querySelector('#generate').addEventListener('click', fetchUser);
 
-fetchUser();
