@@ -2,7 +2,10 @@
 document.querySelector('button').addEventListener('click',()=>{
 
   fetch('https://randomuser.me/api/')
-.then(response=> {return response.json()})
+.then(response=> {
+     if(!response.ok)
+      throw new Error('Something went wrong! :( Let me know about this')
+     return response.json()})
 .then(data => {return (data.results[0]) })
 .then(randomUser =>{
   document.body.style.color='black'
@@ -38,6 +41,12 @@ document.querySelector('button').addEventListener('click',()=>{
     </div>
   </div>
 </div>`
+})
+.catch(error =>{
+  hideSpinner();
+  document.querySelector('#user').innerHTML = `
+  <p class="text-xl text-center text-red-500 mb-5">
+  ${error}</p>`;
 })
 
 
