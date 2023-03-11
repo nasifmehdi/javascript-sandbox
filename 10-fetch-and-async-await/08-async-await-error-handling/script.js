@@ -13,6 +13,7 @@ const getUsers = async () => {
   } catch (error) {
     console.log(error);
   }
+
 };
 
 const getPosts = async () => {
