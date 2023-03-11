@@ -5,9 +5,8 @@
 // }
 
 function double(number) {
-  if (isNaN(number)) {
-    throw new Error(number + ' is not a number');
-  }
+  if(isNaN(number))
+   throw new Error(number + 'is not a number dumbass')
 
   return number * 2;
 }
