@@ -1,5 +1,15 @@
 const global = {
   currentPage: window.location.pathname,
+  search:{
+    term:'',
+    type:'',
+    page:1,
+    totalPages:1
+  },
+  api:{
+    apiKey:'6e24d641b14f53e559c6bc6710b05362',
+    apiURL:'https://api.themoviedb.org/3/'
+  }
 };
 
 // Display 20 most popular movies
@@ -35,6 +45,15 @@ async function displayPopularMovies() {
 
     document.querySelector('#popular-movies').appendChild(div);
   });
+}
+
+function showAlert(message,className){
+  const alertElement= document.createElement('div')
+  
+  alertElement.classList.add('alert',className)
+  alertElement.appendChild(document.createTextNode(message))
+  document.getElementById('alert').appendChild(alertElement)
+  setTimeout(()=>{alertElement.remove()},3000)
 }
 
 // Display 20 most popular tv shows
@@ -241,8 +260,8 @@ function displayBackgroundImage(type, backgroundPath) {
 async function fetchAPIData(endpoint) {
   // Register your key at https://www.themoviedb.org/settings/api and enter here
   // Only use this for development or very small projects. You should store your key and make requests from a server
-  const API_KEY = '6e24d641b14f53e559c6bc6710b05362';
-  const API_URL = 'https://api.themoviedb.org/3/';
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiURL;
 
   showSpinner();
 
@@ -256,6 +275,40 @@ async function fetchAPIData(endpoint) {
 
   return data;
 }
+async function searchAPIData(){
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiURL;
+
+  showSpinner();
+
+  const response = await fetch(
+    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
+  );
+
+  const data = await response.json();
+
+  hideSpinner();
+
+  return data;
+}
+async function search(){
+
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  
+  console.log(urlParams.get('type'));
+  global.search.term = urlParams.get('search-term')
+  global.search.type = urlParams.get('type')
+  if(global.search.term!='' && global.search.term!=null)
+  {  const results= await searchAPIData()
+    console.log(results);
+
+  }
+  else{
+    showAlert('Search something!')
+  }
+}
+
 
 function showSpinner() {
   document.querySelector('.spinner').classList.add('show');
@@ -278,6 +331,46 @@ function highlightActiveLink() {
 function addCommasToNumber(number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+async function displaySlider(){
+ const {results}= await fetchAPIData('movie/now_playing');
+ results.forEach(movie=>{
+  const div = document.createElement('div')
+  div.classList.add('swiper-slide')
+  div.innerHTML=`<a href="movie-details.html?id=${movie.id}">
+           <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+            alt="${movie.title}" />
+                </a>
+         <h4 class="swiper-rating">
+        <i class="fas fa-star text-secondary"></i> ${addCommasToNumber(movie.vote_average)}/ 10
+         </h4> `;
+  document.querySelector('.swiper-wrapper').appendChild(div)
+  initSwiper()       
+ })
+}
+function initSwiper(){
+
+  const swiper = new Swiper('.swiper',{
+    slidesPerView:3,
+    spaceBetween:10,
+    freeMode:true,
+    loop:true,
+    autoplay:{
+      delay:3000,
+      disableOnInteraction:false
+    },
+    breakpoints:{
+      500:{
+        slidesPerView:4
+      },
+      700:{
+        slidesPerView:5
+      },
+      1200:{
+        slidersPerView:6
+      },
+    }
+  })
+}
 
 // Init App
 function init() {
@@ -285,6 +378,7 @@ function init() {
     case '/':
     case '/index.html':
       displayPopularMovies();
+      displaySlider()
       break;
     case '/shows.html':
       displayPopularShows();
@@ -296,10 +390,11 @@ function init() {
       displayShowDetails();
       break;
     case '/search.html':
-      console.log('Search');
+    //console.log('Search');
+    search()
       break;
   }
-
+  
   highlightActiveLink();
 }
 
