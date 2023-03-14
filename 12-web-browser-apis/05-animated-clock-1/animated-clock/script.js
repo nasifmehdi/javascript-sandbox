@@ -1,3 +1,8 @@
+const faceColor= document.querySelector("#face-color")
+const borderColor= document.querySelector("#border-color")
+const lineColor= document.querySelector("#line-color")
+const largehandColor= document.querySelector("#large-hand-color")
+const secondhandColor= document.querySelector("#second-hand-color")
 function clock(){
 const now= new Date();
 const canvas= document.querySelector('#canvas')
@@ -10,7 +15,7 @@ ctx.rotate(-Math.PI/2)
 
 //default style
 ctx.strokeStyle='#000000'
-ctx.fillStyle='#f4f4'
+ctx.fillStyle=faceColor.value
 ctx.lineWidth=5
 ctx.lineCap='round'
 
@@ -18,7 +23,7 @@ ctx.lineCap='round'
 ctx.save()
 ctx.beginPath()
 ctx.lineWidth=14
-ctx.strokeStyle='#800000'
+ctx.strokeStyle=borderColor.value
 ctx.arc(0,0,150,0,Math.PI*2,true)
 ctx.stroke()
 ctx.fill()
@@ -26,6 +31,7 @@ ctx.restore()
 
 //draw hour lines
 ctx.save()
+ctx.strokeStyle=largehandColor.value
 let i=0
 while(i<12){
   ctx.beginPath()
@@ -38,7 +44,9 @@ while(i<12){
 ctx.restore()
 //draw minute lines
 ctx.save()
+
 let j=0
+ctx.strokeStyle=lineColor.value
 ctx.lineWidth=4
 while(j<60){
   if(j % 5 !=0){  
@@ -52,6 +60,7 @@ while(j<60){
 }
 ctx.restore()
 //draw hour hand
+
 const hr= now.getHours()%12
 const min=now.getMinutes()
 const sec=now.getSeconds()
@@ -62,7 +71,7 @@ ctx.save()
 ctx.rotate(
   (Math.PI/6) * hr + (Math.PI / 360) * min + (Math.PI / 21600) * sec
 )
-ctx.strokeStyle='#800000'
+ctx.strokeStyle=secondhandColor.value
 ctx.lineWidth= 14;
 ctx.beginPath()
 ctx.moveTo(-20,0)
@@ -109,8 +118,14 @@ ctx.restore()
 requestAnimationFrame(clock)
 }
 
-function init(){
-  
+
+  document.querySelector('button').addEventListener('click',()=>{
+    const saveAs = canvas.toDataURL('image/png')
+    const link=document.createElement('a')
+    link.download='clock.png'
+    link.href=saveAs
+    link.click()
+
+  })
   requestAnimationFrame(clock)
-}
-init()
+
