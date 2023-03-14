@@ -1,27 +1,25 @@
-const image = document.querySelector('img');
-let start;
-let done = false;
+const img= document.querySelector('img')
+let start,elapsed;
+function step(timestamp){
+ if(start==undefined)
+ start=timestamp
 
-function step(timestamp) {
-  if (start === undefined) {
-    start = timestamp;
-  }
+ let done=false;
 
-  const elapsed = timestamp - start;
 
-  if (elapsed > 5000) {
-    done = true;
-  }
+ if(elapsed>=10000){
+ done=true 
+ }
 
-  if (done) {
-    return;
-  }
+ if(done==true){
+ return;
+ }
 
-  image.style.transform = `translateX(${elapsed / 10}px) rotate(${
-    elapsed / 10
-  }deg)`;
+ elapsed=timestamp-start
 
-  requestAnimationFrame(step);
+
+ img.style.transform=`translateX(${elapsed/50}px) rotate(${elapsed/6}deg)`
+requestAnimationFrame(step)
+  //console.log(elapsed);
 }
-
-requestAnimationFrame(step);
+requestAnimationFrame(step)
