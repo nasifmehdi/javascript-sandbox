@@ -1,19 +1,19 @@
 const rectanglePrototypes = {
   area: function () {
-    return this.width * this.height;
+    return this.width * this.length;
   },
   perimeter: function () {
-    return 2 * (this.width + this.height);
+    return 2 * (this.width + this.length);
   },
   isSquare: function () {
-    return this.height === this.width;
+    return this.length === this.width;
   },
 };
 
-function createRectangle(height, width) {
+function createRectangle(length, width) {
   return Object.create(rectanglePrototypes, {
-    height: {
-      value: height,
+    length: {
+      value: length,
     },
     width: {
       value: width,
