@@ -6,7 +6,11 @@ function Rectangle(name, width, height) {
     return this.width * this.height;
   };
 }
+Rectangle.prototype.area=()=>{
 
-const rect = new Rectangle('Rect', 10, 10);
+    return this.width * this.height;
+}
+const rect = new Rectangle('Rect', 10, 40);
 
+console.log(rect.area());
 console.log(Object.getPrototypeOf(rect));
