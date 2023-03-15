@@ -1,31 +1,30 @@
-class Rectangle {
-  constructor(name, width, height) {
-    this.name = name;
-    this.width = width;
-    this.height = height;
+class Rectangle{
+
+  constructor(height,width){
+    this.height=height
+    this.width=width
+  }
+  area(){
+    return this.height * this.width
+  }
+  perimeter(){
+    return this.height + this.width
+  }
+  isSqaure(){
+    return this.height == this.width
+  }
+  logArea(){
+    console.log(this.height * this.width);
+  }
+  logPerimeter(){
+    console.log(this.height + this.width);
+  }
+  logIsSquare(){
+      console.log(this.height == this.width);
+    }  
   }
 
-  area() {
-    return this.height * this.width;
-  }
 
-  perimeter() {
-    return 2 * (this.width + this.height);
-  }
 
-  isSquare() {
-    return this.width === this.height;
-  }
-
-  logArea() {
-    console.log('Rectangle Area: ' + this.area());
-  }
-}
-
-const square = new Rectangle('Square', 20, 20);
-console.log(square.area());
-console.log(square.perimeter());
-console.log(square.isSquare());
-square.logArea();
-console.log(square);
-// console.log(Object.getPrototypeOf(square));
+const rect= new Rectangle(34,56)
+rect.logIsSquare()
