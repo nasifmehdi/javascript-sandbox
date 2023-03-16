@@ -1,39 +1,25 @@
-class Person {
-  constructor(firstName, lastName) {
-    this._firstName = firstName;
-    this._lastName = lastName;
+class Person{
+  constructor(firstName,lastName){
+    this._firstName=firstName
+    this._lastName=lastName
   }
+  capitalizeFirstLetter(value){
+    return (value.charAt(0).toUpperCase()+ value.slice(1))
 
-  get firstName() {
-    return this.capitalizeFirst(this._firstName);
   }
-
-  set firstName(value) {
-    this._firstName = this.capitalizeFirst(value);
+  get firstName(){
+    return this.capitalizeFirstLetter(this._firstName)
   }
-
-  get lastName() {
-    return this.capitalizeFirst(this._lastName);
+  set firstName(string){
+    this._firstName=string
   }
-
-  set lastName(value) {
-    this._lastName = this.capitalizeFirst(value);
+  get lastName(){
+    return this.capitalizeFirstLetter(this._lastName)
   }
-
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
-
-  capitalizeFirst(value) {
-    return value.charAt(0).toUpperCase() + value.slice(1);
+  set lastName(string){
+    this._lastName=string
   }
 }
 
-const person1 = new Person('john', 'doe');
-console.log(person1.firstName);
-console.log(person1.lastName);
-
-person1.firstName = 'joe';
-person1.lastName = 'smith';
-console.log(person1.fullName);
-console.log(person1);
+const person1=new Person('john','cena')
+console.log(person1.firstName,person1.lastName);
