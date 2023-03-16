@@ -15,5 +15,4 @@ class Rectangle {
 }
 
 const rect = new Rectangle('Rect', 10, 10);
-console.log(rect.area());
 console.log(Rectangle.getClass());
