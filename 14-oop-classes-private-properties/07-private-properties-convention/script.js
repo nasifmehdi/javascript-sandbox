@@ -1,11 +1,13 @@
 class Wallet{
+    #balance
+    #transactions
  constructor(){
-    this._balance=0
-    this._transactions=[]
+    this.#balance=0
+    this.#transactions=[]
  }
  deposit(amount){
-  this._balance=this._balance+amount
-  this._transactions.push({
+  this.#balance=this.#balance+amount
+  this.#transactions.push({
     _type:'deposit',
     _amount:amount
  })
@@ -13,13 +15,13 @@ class Wallet{
   
  }
  withdraw(amount){
-    if(this._balance < amount){
+    if(this.#balance < amount){
         console.log(amount +' is more than balance' );
         return;
     }
     
-    this._balance=this._balance-amount
-    this._transactions.push({
+    this.#balance=this.#balance-amount
+    this.#transactions.push({
         _type:'withdrawn',
         _amount:amount
      })
@@ -27,10 +29,10 @@ class Wallet{
  
  }
  get balance(){
-    return 'balance:'+this._balance
+    return 'balance:'+this.#balance
  }
  get transactions(){
-    return this._transactions
+    return this.#transactions
  }
  
 }
